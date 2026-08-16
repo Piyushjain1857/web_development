@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    1. let , const and var 2. hoisting and TDZ 3. types of functions.
+
+
+    const demo=()=>{
+
+    }
+
+    Closure:
+
+
+    <script>
+        // callback function
+      // callback=demo
+      function sample(callback) {
+        console.log("sample");
+        callback();
+      }
+    //   function demo() {
+    //     console.log("demo1");
+    //   }
+      sample(()=>{
+        console.log("demo1")
+      });
+
+//closure
+
+      function enrollStudent(){
+    var name = "Nitin";
+    console.log("Enrolled Successfully")
+    function attendance(){
+        console.log(name,"Attendance Marked")
+    }
+    return attendance
+}
+var v = enrollStudent()
+v()
+//1000 codes....
+v()
+//1000code
+v()
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>

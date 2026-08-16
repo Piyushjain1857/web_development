@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Grid Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Desktop Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 180px 1fr 1fr;
+            grid-template-rows: 100px 400px 1fr 200px;
+            min-height: 100vh;
+        }
+
+        .header {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            background-color: #1a2332;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .menu {
+            grid-column: 2 / 4;
+            grid-row: 1 / 2;
+            background-color: #ff5a5f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .menu a:hover {
+            transform: translateY(-3px);
+        }
+
+        .hero {
+            grid-column: 1 / 4;
+            grid-row: 2 / 3;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.9), rgba(74, 144, 226, 0.7)),
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            color: white;
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-text p {
+            font-size: 24px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main {
+            grid-column: 1 / 3;
+            grid-row: 3 / 4;
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px;
+        }
+
+        .main h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .main p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .image {
+            grid-column: 3 / 4;
+            grid-row: 3 / 4;
+            background: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800') center/cover;
+        }
+
+        .extra {
+            grid-column: 3 / 4;
+            grid-row: 4 / 5;
+            background-color: #52c4a1;
+            color: white;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .extra h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .extra p {
+            font-size: 16px;
+        }
+
+        .banner {
+            grid-column: 1 / 3;
+            grid-row: 4 / 5;
+            background-color: #f5c76a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .banner-content {
+            text-align: center;
+        }
+
+        .banner-content h3 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .banner-content button {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .banner-content button:hover {
+            background-color: #1a2332;
+            transform: scale(1.05);
+        }
+
+        /* Tablet Layout */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 110px 1fr 1fr;
+                grid-template-rows: 100px 350px 1fr 180px 180px;
+            }
+
+            .header {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+
+            .menu {
+                grid-column: 1 / 2;
+                grid-row: 2 / 5;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero {
+                grid-column: 2 / 4;
+                grid-row: 1 / 3;
+            }
+
+            .hero-text h1 {
+                font-size: 42px;
+            }
+
+            .hero-text p {
+                font-size: 20px;
+            }
+
+            .main {
+                grid-column: 2 / 4;
+                grid-row: 3 / 4;
+                padding: 30px;
+            }
+
+            .banner {
+                grid-column: 2 / 4;
+                grid-row: 4 / 5;
+            }
+
+            .extra {
+                grid-column: 1 / 3;
+                grid-row: 5 / 6;
+            }
+
+            .image {
+                grid-column: 3 / 4;
+                grid-row: 5 / 6;
+            }
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 80px 60px 300px auto 180px 150px 200px;
+            }
+
+            .header {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+                font-size: 20px;
+            }
+
+            .menu {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .menu a {
+                font-size: 16px;
+            }
+
+            .hero {
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-text p {
+                font-size: 16px;
+            }
+
+            .main {
+                grid-column: 1 / 2;
+                grid-row: 4 / 5;
+                padding: 25px;
+            }
+
+            .main h2 {
+                font-size: 28px;
+            }
+
+            .main p {
+                font-size: 16px;
+            }
+
+            .banner {
+                grid-column: 1 / 2;
+                grid-row: 5 / 6;
+            }
+
+            .banner-content h3 {
+                font-size: 24px;
+            }
+
+            .extra {
+                grid-column: 1 / 2;
+                grid-row: 6 / 7;
+            }
+
+            .image {
+                grid-column: 1 / 2;
+                grid-row: 7 / 8;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            LOGO
+        </div>
+        
+        <div class="menu">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+        
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Welcome to Our Site</h1>
+                <p>Discover amazing experiences</p>
+            </div>
+        </div>
+        
+        <div class="main">
+            <h2>About Our Company</h2>
+            <p>We are dedicated to providing exceptional service and innovative solutions to meet your needs. Our team of experts works tirelessly to ensure customer satisfaction.</p>
+            <p>With years of experience in the industry, we've helped thousands of clients achieve their goals and transform their businesses.</p>
+            <p>Our commitment to excellence and attention to detail sets us apart from the competition.</p>
+        </div>
+        
+        <div class="image"></div>
+        
+        <div class="banner">
+            <div class="banner-content">
+                <h3>Special Offer!</h3>
+                <button>Get Started Today</button>
+            </div>
+        </div>
+        
+        <div class="extra">
+            <h3>Why Choose Us?</h3>
+            <p>✓ 24/7 Customer Support</p>
+            <p>✓ Industry Leading Experts</p>
+            <p>✓ Satisfaction Guaranteed</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+h2{
+    color: tomato;
+}
+h1{
+    text-align: center;
+    text-decoration:underline dotted;
+    text-transform:lowercase;
+}
+
+.sub-heading{
+    color: aqua;
+}
+.colorHeading{
+    background-color: blue;
+}
+#sub-title{
+    background-color: aquamarine;
+}
+
+.para{
+    font-size: 30px;
+    /* font-family:monospace;
+    font-weight: bold;
+    font-style: italic; */
+     font-family: "UnifrakturMaguntia", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+
+}
+

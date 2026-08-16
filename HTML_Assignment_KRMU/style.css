@@ -1,0 +1,12 @@
+h3{
+    color: aquamarine;
+}
+
+.h3{
+    color: tomato;
+    font-size: 30px;
+    /* font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-weight: bold;
+    font-style: italic;
+    
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+
+    <div class="data"></div>
+    <script>
+
+
+        async function demo(){
+            return 5;
+        }
+        console.log(demo())
+        // const res = demo()
+        // res.then((x)=>console.log(x))
+
+
+
+      const pro = new Promise((res, rej) => {
+        setTimeout(() => {
+          res("Payment Done");
+        }, 5000);
+      });
+
+       async function getData() {
+        console.log("hello")
+        // pro.then((x) => console.log(x));
+       const v= await pro;
+       console.log(v)
+        console.log("Dashboard Access");
+      }
+      getData()
+
+    //   function getData() {
+    //     pro.then((x) => console.log(x));
+    //     console.log("Dashboard Access");
+    //   }
+    //   getData();
+    </script>
+  </body>
+</html>

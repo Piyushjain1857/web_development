@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, rgb(3, 185, 230),rgb(10, 237, 177));
+    color: rgb(46, 38, 38);
+    height: 70px;
+    font-size: 25px;
+    position: sticky;
+    top: 0px;
+}
+.nav-menu{
+    display: flex;
+    list-style-type: none;
+}
+
+.nav-menu > li{
+    margin: 0 15px;
+}
+
+.menu-button-container{
+    display: none;
+    width: 30px;
+    height: 20px;
+    /* background-color: antiquewhite; */
+}
+
+#menu-toggle{
+    display: none;
+}
+
+
+.menu-button,
+.menu-button::before,
+.menu-button::after{
+    display: block;
+    background-color: black;
+    position: absolute;
+    height: 5px;
+    width: 30px;
+    border-radius: 5px;
+    transition: all 0.5s ease;
+}
+
+.menu-button::before{
+    content: "";
+    margin-top: -8px;
+}
+.menu-button::after{
+    content: "";
+    margin-top: 8px;
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button::before{
+    margin-top: 0px;
+    transform: rotate(45deg);
+}
+#menu-toggle:checked + .menu-button-container .menu-button::after{
+    margin-top: 0px;
+    transform: rotate(-45deg);
+}
+#menu-toggle:checked + .menu-button-container .menu-button{
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+@media (max-width:700px){
+    .menu-button-container{
+        display: flex;
+    }
+    .nav-menu{
+        position: absolute;
+        top: 10px;
+        left: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(-30px);
+        transition: all 0.5s ease;
+        z-index: 5;
+    }
+    #menu-toggle:checked ~ .nav-menu{
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-menu > li{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        color: black;
+        background-color: antiquewhite;
+        transition: all 0.5s ease;
+    }
+
+}

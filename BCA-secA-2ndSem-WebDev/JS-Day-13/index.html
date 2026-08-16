@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="myElement" class="initial-class">This is a div.</div>
+<button id="toggleClassBtn">Toggle Class</button>
+
+<script>
+    const element = document.getElementById("myElement");
+    const toggleButton = document.getElementById("toggleClassBtn");
+
+    toggleButton.addEventListener("click", function() {
+        element.classList.toggle("new-class");
+    });
+</script>
+    
+</body>
+</html>

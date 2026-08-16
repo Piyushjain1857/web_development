@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Integration Field Notes // Bootcamp 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e14;
+    --bg-panel:#10151f;
+    --border:#1c2432;
+    --text:#e6e8eb;
+    --text-dim:#7c8797;
+    --cyan:#00d9ff;
+    --amber:#ffb454;
+    --green:#7fe08c;
+    --pink:#ff6b9d;
+    --violet:#b18cff;
+    --void: #0d0f13;
+    --panel: #171a20;
+    --panel-2: #1e222a;
+    --line: #2a2f3a;
+    --amber: #f2a93c;
+    --amber-dim: #8a6423;
+    --cyan: #55d6c2;
+    --coral: #ef6461;
+    --text: #eae7de;
+    --muted: #9195a1;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(0,217,255,0.07), transparent),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(177,140,255,0.06), transparent),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.65;
+  }
+  code, .mono{ font-family:'JetBrains Mono', monospace; }
+
+  .titlebar{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 24px; border-bottom:1px solid var(--border);
+    background:rgba(13,17,23,0.7); position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+  }
+  .dot{width:11px;height:11px;border-radius:50%;}
+  .dot.r{background:#ff5f57;} .dot.y{background:#febc2e;} .dot.g{background:#28c840;}
+  .titlebar span.path{margin-left:14px; color:var(--text-dim); font-size:13px; font-family:'JetBrains Mono';}
+
+  .hero{ max-width:980px; margin:0 auto; padding:64px 24px 20px; }
+  .eyebrow{
+    font-family:'JetBrains Mono'; font-size:12.5px; color:var(--cyan);
+    letter-spacing:2px; text-transform:uppercase; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:"$"; color:var(--green);}
+  .hero h1{
+    font-size:44px; line-height:1.15; margin:18px 0 14px; font-weight:800;
+    background:linear-gradient(100deg,#fff 30%, var(--cyan) 75%, var(--violet));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.sub{ color:var(--text-dim); font-size:16.5px; max-width:660px; }
+  .hero p.sub b{color:var(--text); font-weight:600;}
+
+  .tabnav{
+    max-width:980px; margin:34px auto 0; padding:0 24px;
+    display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--border);
+  }
+  .tabnav a{
+    font-family:'JetBrains Mono'; font-size:13px; color:var(--text-dim);
+    text-decoration:none; padding:11px 16px; border-bottom:2px solid transparent;
+    display:flex; align-items:center; gap:8px; transition:.15s;
+  }
+  .tabnav a:hover{ color:var(--text); }
+  .tabnav a b{color:var(--amber); font-weight:700;}
+  .tabnav a:hover.t1{border-color:var(--cyan);}
+  .tabnav a:hover.t2{border-color:var(--green);}
+  .tabnav a:hover.t3{border-color:var(--violet);}
+
+  .module{ max-width:980px; margin:0 auto; padding:64px 24px 20px; }
+  .modhead{ display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .modnum{
+    font-family:'JetBrains Mono'; font-size:14px; color:var(--bg);
+    background:var(--accent,var(--cyan)); padding:2px 9px; border-radius:4px; font-weight:700;
+  }
+  .module h2{ font-size:28px; margin:0; font-weight:800; }
+  .module .tagline{ color:var(--text-dim); font-size:15px; margin:6px 0 32px; }
+
+ .terminal{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .dot.r{background:#ff5f57;} .dot.y{background:#febc2e;} .dot.g{background:#28c840;}
+  .term-title{
+    font-family:var(--mono); font-size:12px; color:var(--muted); margin-left:8px;
+  }
+  .term-body{
+    padding:20px;
+    font-family:var(--mono);
+    font-size:14px;
+    min-height:150px;
+  }
+  .term-line{margin-bottom:6px;}
+  .term-prompt-label{color:var(--cyan);}
+  .term-user{color:var(--text);}
+  .term-ai-label{color:var(--amber);}
+  .term-ai-out{color:#d3d0c8; white-space:pre-wrap;}
+  .cursor{display:inline-block; width:8px; height:16px; background:var(--amber); vertical-align:middle; animation:blink 0.9s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .term-controls{
+    display:flex; gap:10px; padding:0 20px 18px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:8px 14px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    color:var(--text);
+    cursor:pointer;
+    transition:border-color .15s, transform .1s;
+  }
+  .btn:hover{border-color:var(--amber);}
+  .btn:active{transform:scale(0.97);}
+  .btn.primary{background:var(--amber); color:#161616; border-color:var(--amber); font-weight:700;}
+  .btn.primary:hover{background:#ffbb5c;}
+
+
+
+
+  .card{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:10px;
+    padding:22px 24px; margin:20px 0;
+  }
+  .card h3{ margin-top:0; font-size:17px; display:flex; align-items:center; gap:9px;}
+  .card h3 .ic{font-size:15px;}
+  .card p:last-child{margin-bottom:0;}
+
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:760px){ .grid2{grid-template-columns:1fr;} .hero h1{font-size:32px;} }
+
+  .bad, .good{ border-radius:10px; padding:16px 18px; font-family:'JetBrains Mono'; font-size:13.3px; white-space:pre-wrap; line-height:1.6;}
+  .bad{ background:rgba(255,107,157,0.07); border:1px solid rgba(255,107,157,0.35); }
+  .good{ background:rgba(127,224,140,0.07); border:1px solid rgba(127,224,140,0.35); }
+  .tag{ font-family:'JetBrains Mono'; font-size:11px; font-weight:700; letter-spacing:1px; padding:3px 8px; border-radius:5px; display:inline-block; margin-bottom:10px;}
+  .tag.bad{background:rgba(255,107,157,0.18); color:var(--pink);}
+  .tag.good{background:rgba(127,224,140,0.18); color:var(--green);}
+  .tag.neutral{background:rgba(0,217,255,0.15); color:var(--cyan);}
+
+  .compare{
+    border-radius:10px; padding:16px 18px; font-family:'JetBrains Mono'; font-size:13.3px;
+    background:rgba(0,217,255,0.05); border:1px solid rgba(0,217,255,0.3); white-space:pre-wrap; line-height:1.6;
+  }
+
+  .usecase{
+    border-left:3px solid var(--amber); background:rgba(255,180,84,0.05);
+    padding:16px 20px; border-radius:0 10px 10px 0; margin:20px 0;
+  }
+  .usecase .lbl{ font-family:'JetBrains Mono'; font-size:11.5px; color:var(--amber); letter-spacing:1px; font-weight:700;}
+
+  .trythis{
+    border-left:3px solid var(--cyan); background:rgba(0,217,255,0.05);
+    padding:16px 20px; border-radius:0 10px 10px 0; margin:20px 0;
+  }
+  .trythis .lbl{ font-family:'JetBrains Mono'; font-size:11.5px; color:var(--cyan); letter-spacing:1px; font-weight:700;}
+
+  .mistake{
+    border-left:3px solid var(--pink); background:rgba(255,107,157,0.05);
+    padding:14px 20px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14.5px;
+  }
+  .mistake .lbl{ font-family:'JetBrains Mono'; font-size:11px; color:var(--pink); letter-spacing:1px; font-weight:700;}
+
+  .analogy{
+    border-left:3px solid var(--violet); background:rgba(177,140,255,0.05);
+    padding:16px 20px; border-radius:0 10px 10px 0; margin:20px 0; font-size:14.8px;
+  }
+  .analogy .lbl{ font-family:'JetBrains Mono'; font-size:11.5px; color:var(--violet); letter-spacing:1px; font-weight:700;}
+
+  .pipeline{ display:flex; align-items:center; gap:0; flex-wrap:wrap; margin:26px 0; }
+  .pipe-step{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:9px;
+    padding:12px 16px; font-family:'JetBrains Mono'; font-size:13px; text-align:center; min-width:120px;
+  }
+  .pipe-arrow{ color:var(--text-dim); padding:0 10px; font-size:18px; }
+
+  ul.checklist{ list-style:none; padding-left:0; margin:14px 0;}
+  ul.checklist li{ padding:6px 0 6px 28px; position:relative; font-size:14.5px;}
+  ul.checklist li::before{ content:"▸"; position:absolute; left:0; color:var(--cyan); font-weight:700;}
+
+  .footerbar{
+    max-width:980px; margin:60px auto 0; padding:26px 24px 60px; color:var(--text-dim);
+    font-family:'JetBrains Mono'; font-size:12.5px; border-top:1px solid var(--border);
+  }
+  .footerbar .prompt::before{content:"$ "; color:var(--green);}
+
+  ::selection{ background:rgba(0,217,255,0.3); }
+</style>
+</head>
+<body>
+
+<div class="titlebar">
+  <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+  <span class="path">~/bootcamp/module-notes/ai-integration.md</span>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">field notes — not a lecture</div>
+  <h1>Prompt Engineering, Streaming &amp; AI Content Pipelines</h1>
+  <p class="sub">No code here — just the concepts, the real examples, and the mental models. <b>How to write prompts that don't fail</b>, <b>how AI responses actually behave when an app receives them</b>, and <b>how a repeatable content workflow is put together</b>. Every section has a real-world before/after and a "try this in your head" drill.</p>
+</div>
+
+<div class="tabnav">
+  <a href="#m1" class="t1"><b>01</b> Prompt Engineering</a>
+  <a href="#m2" class="t2"><b>02</b> Response Handling</a>
+  <a href="#m3" class="t3"><b>03</b> Content Pipelines</a>
+</div>
+
+<!-- ===================== MODULE 1 ===================== -->
+<div class="module" id="m1" style="--accent:#00d9ff">
+  <div class="modhead"><span class="modnum">01</span><h2>Prompt Engineering</h2></div>
+  <p class="tagline">Prompt structure optimization — the difference between "AI gave a weird answer" and "AI did exactly what I needed."</p>
+
+  <div class="card">
+    <h3><span class="ic">🧩</span> The 5-part structure that actually works</h3>
+    <p>Stop typing prompts like search queries. Every reliable prompt has these five slots — skip one and the model guesses, and guessing is where bad answers come from:</p>
+    <ul class="checklist">
+      <li><b>ROLE</b> — who is the model pretending to be? ("You are a senior React reviewer")</li>
+      <li><b>CONTEXT</b> — what does it need to know that it can't guess? (the actual details, the actual data)</li>
+      <li><b>TASK</b> — one specific instruction, not three vague ones</li>
+      <li><b>FORMAT</b> — exact output shape (a list, a table, a word limit, plain text)</li>
+      <li><b>CONSTRAINTS</b> — what to avoid, edge cases, tone</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <span class="tag bad">BEFORE — vague</span>
+      <div class="bad">"write feedback for this student's github profile"</div>
+    </div>
+    <div>
+      <span class="tag good">AFTER — structured</span>
+      <div class="good">ROLE: You're a technical mentor reviewing bootcamp student activity.
+CONTEXT: 14 commits, 3 repos, 1 pull request, 5-day streak.
+TASK: Write 2 lines of feedback — 1 strength, 1 area to improve.
+FORMAT: Two short sentences, no headings.
+CONSTRAINT: No generic praise. Mention the actual numbers.</div>
+    </div>
+  </div>
+
+  <div class="usecase">
+    <div class="lbl">REAL USE CASE</div>
+    <p>Think of a <b>student GitHub leaderboard</b>. "AFTER" is the difference between the AI saying "Great job, keep it up!" for every single student versus saying something that actually reflects that student's numbers — which is the only version worth showing anyone.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="ic">⚙️</span> 4 techniques you'll reach for constantly</h3>
+    <div class="grid2">
+      <div>
+        <b>Few-shot (show, don't tell)</b>
+        <p style="font-size:14px;color:var(--text-dim);margin:6px 0 0">Give 2-3 example inputs and outputs before asking for the real one. Models copy a pattern far more reliably than they follow an abstract rule.</p>
+      </div>
+      <div>
+        <b>Delimiters</b>
+        <p style="font-size:14px;color:var(--text-dim);margin:6px 0 0">Wrap raw data in quotes or brackets so the model never confuses "content to process" with "instructions to follow." Example: <i>Summarize the text between the &lt;&lt; &gt;&gt; marks.</i></p>
+      </div>
+      <div>
+        <b>chain of thought (Step-by-step reasoning)</b>
+        <p style="font-size:14px;color:var(--text-dim);margin:6px 0 0">Adding "think through this step by step before answering" helps on logic-heavy tasks. Skip it for simple tasks — it just makes the answer longer for no benefit.</p>
+      </div>
+      <div>
+        <b>Lock the format</b>
+        <p style="font-size:14px;color:var(--text-dim);margin:6px 0 0">Say exactly what you want back: "Reply with only the rewritten sentence — no explanation, no extra text." Otherwise you get a polite paragraph wrapped around the actual answer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mistake">
+    <div class="lbl">COMMON MISTAKE</div>
+    Asking for "a summary" with no length or format specified — every response comes back a different length and shape, which is fine for a chat but breaks anything that has to display the output consistently.
+  </div>
+
+  <div class="trythis">
+    <div class="lbl">TRY THIS — 5 MIN, IN CLASS</div>
+    Pick a prompt someone in the room has actually typed before ("write a project description" or similar). Rewrite it live using ROLE/CONTEXT/TASK/FORMAT/CONSTRAINT on the whiteboard. Run both in any AI chat, 3 times each. The vague one changes every run; the structured one barely moves.
+  </div>
+</div>
+
+<!-- ===================== MODULE 2 ===================== -->
+<div class="module" id="m2" style="--accent:#7fe08c">
+  <div class="modhead"><span class="modnum">02</span><h2>AI Response Handling</h2></div>
+  <p class="tagline">Streaming responses &amp; formatting — how a real chat app avoids the "stare at a spinner for 8 seconds" problem.</p>
+
+  <div class="analogy">
+    <div class="lbl">ANALOGY</div>
+    Non-streamed AI is a waiter who disappears into the kitchen and comes back 8 seconds later with your entire meal at once. Streaming is the same waiter bringing each dish out the moment it's ready — same total time, but you're never left wondering if the kitchen forgot about you. That's exactly why ChatGPT "types" its answer instead of dumping the whole thing at once.
+  </div>
+
+  <div class="card">
+    <h3><span class="ic">⚡</span> Why streaming matters</h3>
+    <p>A long AI answer generated all at once can take 5–15 seconds before the user sees anything. Streamed, the first words appear almost instantly and the rest fills in as it's generated. Total time is identical — <b>perceived</b> wait drops to nearly zero. This one decision is the biggest UX lever in any AI feature, more impactful than almost anything else you'll tune.</p>
+  </div>
+
+
+
+
+
+
+   <div class="terminal">
+    <div class="term-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">node server.js — POST /api/generate</span>
+    </div>
+    <div class="term-body" id="termBody">
+      <div class="term-line"><span class="term-prompt-label">user&gt;</span> <span class="term-user">Write a 2-line product blurb for wireless earbuds, playful tone.</span></div>
+      <div class="term-line"><span class="term-ai-label">ai&gt;</span> <span class="term-ai-out" id="streamOut"></span><span class="cursor" id="cursorEl" style="display:none;"></span></div>
+    </div>
+    <div class="term-controls">
+      <button class="btn primary" onclick="runStream()">▶ Run streaming demo</button>
+      <button class="btn" onclick="runBlocking()">⏳ Run "wait for it all" demo</button>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="card">
+    <h3><span class="ic">🧱</span> Why "formatting" the response is its own skill</h3>
+    <p>Treat AI output as <b>unpredictable text</b> until proven otherwise. Ask an AI for a clean list of items and here's what actually tends to come back:</p>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <span class="tag neutral">WHAT YOU ASKED FOR</span>
+      <div class="compare">A plain list of 3 skills, nothing else.</div>
+    </div>
+    <div>
+      <span class="tag bad">WHAT YOU OFTEN GET</span>
+      <div class="bad">Sure! Here are three skills:
+1. Communication
+2. Problem-solving
+3. Teamwork
+Let me know if you'd like more!</div>
+    </div>
+  </div>
+
+  <div class="mistake">
+    <div class="lbl">WHY IT MATTERS</div>
+    If your app expects <i>only</i> the list to display in a UI, that friendly "Sure! Here are..." intro and the "Let me know..." sign-off are junk it now has to strip out. This is why every real AI feature includes an instruction like <i>"reply with only the list, no greeting, no closing remark"</i> — and still needs a fallback plan for when the model ignores it anyway.
+  </div>
+
+  <div class="card">
+    <h3><span class="ic">🎯</span> The 3 formatting problems you'll always run into</h3>
+    <ul class="checklist">
+      <li><b>Extra chatter</b> — greetings, sign-offs, "here's your answer" wrappers around the actual content</li>
+      <li><b>Inconsistent shape</b> — sometimes a numbered list, sometimes bullets, sometimes a paragraph, for the exact same instruction</li>
+      <li><b>Partial output mid-stream</b> — while a response is still streaming in, it's temporarily incomplete — you don't try to "read" it as a finished answer until it's fully done arriving</li>
+    </ul>
+  </div>
+
+  <div class="trythis">
+    <div class="lbl">TRY THIS — 5 MIN, IN CLASS</div>
+    Ask any AI chat for "3 tips for better sleep" twice, in two separate conversations. Compare the shape of both answers side by side — length, whether it uses a list or paragraph, whether it adds a greeting. That inconsistency is exactly what an app has to plan around.
+  </div>
+</div>
+
+<!-- ===================== MODULE 3 ===================== -->
+<div class="module" id="m3" style="--accent:#b18cff">
+  <div class="modhead"><span class="modnum">03</span><h2>AI Content Generation</h2></div>
+  <p class="tagline">Text generation workflows — turning "ask the AI once" into a repeatable process that still works on attempt #200.</p>
+
+  <div class="card">
+    <h3><span class="ic">🔁</span> The workflow every content-gen feature follows</h3>
+    <div class="pipeline">
+      <div class="pipe-step">User Input</div><div class="pipe-arrow">→</div>
+      <div class="pipe-step">Prompt Template</div><div class="pipe-arrow">→</div>
+      <div class="pipe-step">AI Generates</div><div class="pipe-arrow">→</div>
+      <div class="pipe-step">Clean the Output</div><div class="pipe-arrow">→</div>
+      <div class="pipe-step">Show / Save</div>
+    </div>
+    <p>The key idea: the <b>prompt template</b> is a fixed, reusable pattern — the same skeleton with different details dropped in each time. That's what makes it a "workflow" instead of "typing a new prompt every single time by hand."</p>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <span class="tag neutral">THE TEMPLATE (fixed pattern)</span>
+      <div class="compare">Rewrite this raw experience as one ATS-friendly resume bullet, using an action verb and a metric. Target role: [ROLE]. Raw experience: [EXPERIENCE].</div>
+    </div>
+    <div>
+      <span class="tag good">FILLED IN FOR ONE STUDENT</span>
+      <div class="good">Target role: Frontend Developer.
+Raw experience: "made a small react app that shows weather".
+
+→ Result: "Built a React weather app integrating a live API to display real-time forecasts."</div>
+    </div>
+  </div>
+
+  <div class="usecase">
+    <div class="lbl">REAL USE CASE</div>
+    <p>This exact pattern is what an ATS resume checker feature is doing under the hood — same template, different raw experience dropped in for every user, every bullet point.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="ic">📦</span> When it's not just one person — it's 200 of them</h3>
+    <p>Generating content for one student is easy. Generating it for a whole class on a leaderboard is where the real decisions show up:</p>
+    <ul class="checklist">
+      <li><b>Don't fire everything at once</b> — send requests in small batches (say, 5 at a time), not all 200 simultaneously, or the service will start rejecting requests for going too fast</li>
+      <li><b>Plan for some to fail</b> — one student's data being missing or odd shouldn't stop the other 199 from generating</li>
+      <li><b>Don't regenerate what's already done</b> — save each result against that student's ID so re-running the batch doesn't redo (and re-pay for) everyone from scratch</li>
+      <li><b>Keep the template short</b> — a long, wordy prompt repeated 200 times adds up in both time and cost far more than people expect</li>
+    </ul>
+  </div>
+
+  <div class="analogy">
+    <div class="lbl">ANALOGY</div>
+    It's the difference between a single cashier serving customers one at a time versus a checkout line with 5 counters open — the 5-counters version is the "small batches" approach: still controlled, still fair, just not everyone crammed through one register at once.
+  </div>
+
+  <div class="mistake">
+    <div class="lbl">COMMON MISTAKE</div>
+    Treating "generate for 1 student" and "generate for 200 students" as the same problem. The moment volume goes up, batching, failure-handling, and cost per request stop being optional details and become the actual design of the feature.
+  </div>
+
+  <div class="trythis">
+    <div class="lbl">TRY THIS — 5 MIN, IN CLASS</div>
+    Take the resume bullet template above. As a group, fill it in for 3 different "raw experiences" students call out. Notice the template never changes — only what gets dropped into it does. That's the entire idea of a content-generation workflow.
+  </div>
+</div>
+
+<div class="footerbar">
+  <div class="prompt">end of notes — go build something before you forget it</div>
+</div>
+
+
+<script>
+
+const streamText = "Tiny buds, big sound — slip them in and disappear into your own playlist. Rain, gym, or runway, they don't skip a beat.";
+let streamTimer = null;
+
+function resetTerm(){
+  clearTimeout(streamTimer);
+  document.getElementById('streamOut').innerText = '';
+  document.getElementById('cursorEl').style.display = 'none';
+}
+
+function runStream(){
+  resetTerm();
+  const out = document.getElementById('streamOut');
+  const cursor = document.getElementById('cursorEl');
+  cursor.style.display = 'inline-block';
+  let i = 0;
+  function tick(){
+    if(i < streamText.length){
+      out.innerText += streamText[i];
+      i++;
+      streamTimer = setTimeout(tick, 18 + Math.random()*35);
+    } else {
+      cursor.style.display = 'none';
+    }
+  }
+  tick();
+}
+
+function runBlocking(){
+  resetTerm();
+  const out = document.getElementById('streamOut');
+  out.innerText = '⏳ waiting for full response...';
+  streamTimer = setTimeout(()=>{
+    out.innerText = streamText;
+  }, 3200);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>welcome to KRMU</h1>
+    <button>Change</button>
+
+    <script>
+      const heading = document.querySelector("h1");
+      const button = document.querySelector("button");
+
+      button.addEventListener("click", () => {
+        heading.textContent = "Welcome to Bootcamp";
+        heading.style.backgroundColor = "tomato";
+      });
+    </script>
+  </body>
+
+  <!-- <body>
+    <h1>Welcome to KRMU</h1>
+    <button onclick="handleclick()">Click</button>
+
+    <script>
+      function handleclick() {
+        const heading = document.querySelector("h1");
+        heading.textContent = "Welcome to Bootcamp";
+        heading.style.backgroundColor = "red";
+      }
+    </script>
+  </body> -->
+</html>
